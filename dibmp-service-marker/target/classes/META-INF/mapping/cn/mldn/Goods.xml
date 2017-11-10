@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.mldn.dibmp.dao.IGoodsDAO">
+	<!-- 增加商品信息 -->
+	<insert id="doCreate" parameterType="Goods">
+		INSERT INTO goods(name,wiid,stid,price,weight,photo,note,lastin,stornum,recorder,delflag)
+		VALUES(#{name},#{wiid},#{stid},#{price},#{weight},#{photo},#{note},#{lastin},#{stornum},#{recorder},#{delflag})
+	</insert>
+		
+	<!-- 判断商品是否存在 -->
+	<select id="findByName" parameterType="String" resultType="Goods">
+		SELECT gid,name,wiid,stid,price,weight,photo,note,lastin,stornum,recorder,delflag
+		FROM goods WHERE name=#{name} AND delflag=0
+	</select>
+	
+	<!-- 判断商品是否存在 -->
+	<select id="findGoodsByGid" parameterType="Long" resultType="Goods">
+		SELECT gid,name,wiid,stid,price,weight,photo,note,lastin,stornum,recorder,delflag
+		FROM goods WHERE gid=#{gid} AND delflag=0
+	</select>
+	
+	<!-- 查询所有的商品信息 -->
+	<select id="findAll" parameterType="String" resultType="Goods">
+		SELECT gid,name,wiid,stid,price,weight,photo,note,lastin,stornum,recorder,delflag
+		FROM goods WHERE delflag=0
+	</select>
+	
+	<!-- 查询数据行数 -->
+	<select id="findGoodsCount" parameterType="Map" resultType="Long">
+		SELECT count(*) from goods where delflag = 0
+		<if test="column !=null and keyWord !=null">
+				and ${column} like #{keyWord}  
+		</if>
+	</select>
+	
+	<!-- 模糊分页查询数据 column!=null and keyWord!=null and -->
+	<select id="findSpilt" parameterType="Map" resultType="Goods">
+		SELECT gid,name,wiid,stid,price,weight,note,lastin,stornum,recorder,delflag FROM goods 
+		where delflag = 0 
+		<if test="column !=null and keyWord !=null">
+				and ${column} like #{keyWord}  
+		</if>
+		LIMIT #{start},#{lineSize};
+	</select>
+</mapper>
