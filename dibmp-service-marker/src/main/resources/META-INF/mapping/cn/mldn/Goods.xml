@@ -7,6 +7,40 @@
 		INSERT INTO goods(name,wiid,stid,price,weight,photo,note,lastin,stornum,recorder,delflag)
 		VALUES(#{name},#{wiid},#{stid},#{price},#{weight},#{photo},#{note},#{lastin},#{stornum},#{recorder},#{delflag})
 	</insert>
+	
+	<!-- 更新商品信息 -->
+	<update id="editGoods" parameterType="Goods">
+		UPDATE goods
+		<set>
+			<if test="name!=null">
+				name=#{name},
+			</if>
+			<if test="wiid!=null">
+				wiid=#{wiid},
+			</if>
+			<if test="stid!=null">
+				stid=#{stid},
+			</if>
+			<if test="price!=null">
+				price=#{price},
+			</if>
+			<if test="weight!=null">
+				weight=#{weight},
+			</if>
+			<if test="photo!=null">
+				photo=#{photo},
+			</if>
+			<if test="note!=null">
+				note=#{note},
+			</if>
+			<if test="lastin!=null">
+				lastin=#{lastin}
+			</if>
+		</set>
+		<where>
+			gid=#{gid}
+		</where>
+	</update>
 		
 	<!-- 判断商品是否存在 -->
 	<select id="findByName" parameterType="String" resultType="Goods">

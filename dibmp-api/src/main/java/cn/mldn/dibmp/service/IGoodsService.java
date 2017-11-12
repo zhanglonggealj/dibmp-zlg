@@ -10,6 +10,12 @@ public interface IGoodsService {
 	 * @param goods 需要增加的商品信息
 	 * @return 增加成功返回true，失败返回false
 	 */
+	public boolean editGood(Goods goods);
+	/**
+	 * 增加商品信息
+	 * @param goods 需要增加的商品信息
+	 * @return 增加成功返回true，失败返回false
+	 */
 	public boolean addGoods(Goods goods);
 	/**
 	 * 查询所有的商品信息

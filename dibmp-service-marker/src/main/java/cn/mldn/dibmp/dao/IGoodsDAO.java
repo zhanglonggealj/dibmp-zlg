@@ -7,6 +7,12 @@ import cn.mldn.dibmp.vo.Goods;
 
 public interface IGoodsDAO {
 	/**
+	 * 修改商品信息
+	 * @param goods 需要修改的商品信息
+	 * @return 修改成功返回true，失败返回false
+	 */
+	public boolean editGoods(Goods goods);
+	/**
 	 * 增加商品信息
 	 * @param goods 需要增加的商品信息
 	 * @return 增加成功返回true，失败返回false

@@ -6,4 +6,9 @@
 	<select id="findAll" resultType="Witem">
 		SELECT wiid,title FROM witem
 	</select>
+	<!-- 通过商品类型wiid获取商品分类信息 -->
+	<select id="findByWiid" resultType="Witem" parameterType="Long">
+		SELECT wiid,title FROM witem WHERE wiid=#{wiid}
+	</select>
+	
 </mapper>

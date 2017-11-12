@@ -8,7 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 
 public class DefaultFormAuthenticationFilter extends FormAuthenticationFilter {
-	private String randname = "rand" ; // 验证码生成的session属性名称
+	private String randname = "rand" ; // 验证码生成的session属性名称 
 	private String randparam = "code" ; // 用户表单输入的名称
 	@Override
 	protected boolean onAccessDenied(ServletRequest request, 

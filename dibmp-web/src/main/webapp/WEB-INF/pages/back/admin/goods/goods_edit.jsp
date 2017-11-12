@@ -1,10 +1,10 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>d
 <jsp:include page="/WEB-INF/pages/plugins/back/back_header.jsp"/>
 <%!
-	public static final String GOODS_EDIT_URL = "" ;
+	public static final String GOODS_EDIT_URL = "pages/back/admin/goods/edit.action" ;
 %>
 <script type="text/javascript" src="js/pages/back/admin/goods/goods_edit.js"></script>
 <body class="hold-transition skin-blue sidebar-mini"> 
@@ -30,7 +30,7 @@
 								<label class="col-md-3 control-label" for="name">商品名称：</label>
 								<div class="col-md-5">
 									<!-- 定义表单输入组件 -->
-									<input type="text" id="name" name="name" class="form-control"
+									<input type="text" id="name" name="name" value="${goods.name}" class="form-control"
 										placeholder="请输入仓库标记名称">
 								</div>
 								<!-- 定义表单错误提示显示元素 -->
@@ -40,11 +40,11 @@
 								<!-- 定义表单提示文字 -->
 								<label class="col-md-3 control-label" for="tid">商品分类：</label>
 								<div class="col-md-5">
-									<select id="tid" name="tid" class="form-control">
-										<option value="">====== 请选择商品所属分类 ======</option>
-										<option value="1">手机数码</option>
-										<option value="2">女鞋、箱包</option>
-										<option value="3">电脑、办公</option>
+									<input type="hidden" id="retWiid" name="retWiid" value="${goods.wiid}">
+									<select id="wiid" name="wiid" class="form-control">
+									
+										<%-- <option id="${witem.wiid}" value="${witem.title}">${witem.title}</option> --%>
+										
 									</select>
 								</div>
 								<!-- 定义表单错误提示显示元素 -->
@@ -54,11 +54,10 @@
 								<!-- 定义表单提示文字 -->
 								<label class="col-md-3 control-label" for="stid">商品子分类：</label>
 								<div class="col-md-5">
+									<input type="hidden" id="retstid" name="retstid" value="${goods.stid}">
 									<select id="stid" name="stid" class="form-control">
-										<option value="">====== 请选择商品所属子分类 ======</option>
-										<option value="1">手机</option>
-										<option value="2">老人机</option>
-										<option value="3">平板电脑</option>
+										
+										
 									</select>
 								</div>
 								<!-- 定义表单错误提示显示元素 -->
@@ -68,7 +67,7 @@
 								<!-- 定义表单提示文字 -->
 								<label class="col-md-3 control-label" for="price">商品单价（￥）：</label>
 								<div class="col-md-5">
-									<input type="text" id="price" name="price" class="form-control"
+									<input type="text" id="price" name="price" value="${goods.price}" class="form-control"
 										placeholder="请输入商品单价">
 								</div>
 								<!-- 定义表单错误提示显示元素 -->
@@ -79,7 +78,7 @@
 								<label class="col-md-3 control-label" for="weight">商品重量（g）：</label>
 								<div class="col-md-5">
 									<!-- 定义表单输入组件 -->
-									<input type="text" id="weight" name="weight" class="form-control"
+									<input type="text" id="weight" name="weight" value="${goods.weight}" class="form-control"
 										placeholder="请输入商品重量.">
 								</div>
 								<!-- 定义表单错误提示显示元素 -->
@@ -102,7 +101,7 @@
 								<label class="col-md-3 control-label" for="note">备注信息：</label>
 								<div class="col-md-5">
 									<!-- 定义表单输入组件 -->
-									<textarea id="note" name="note"
+									<textarea id="note" name="note" value="${goods.note}"
 										class="form-control" placeholder="请输入商品的详细信息" rows="10"></textarea>
 								</div>
 								<!-- 定义表单错误提示显示元素 -->
@@ -110,6 +109,7 @@
 							</div> 
 							<div class="form-group">
 								<div class="col-md-5 col-md-offset-3">
+									<input type="hidden" id="gid" name="gid" value="${goods.gid}">
 									<button type="submit" class="btn btn-primary">修改</button>
 									<button type="reset" class="btn btn-warning">重置</button>
 								</div>

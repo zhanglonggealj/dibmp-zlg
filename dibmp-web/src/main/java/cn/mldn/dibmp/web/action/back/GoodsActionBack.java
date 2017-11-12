@@ -70,8 +70,7 @@ public class GoodsActionBack extends AbstractAction {
 			}
 		}
 		goods.setPhoto(pic.getOriginalFilename());
-		Date lastin=null;
-		goods.setLastin(lastin);
+		goods.setLastin(new Date());
 		goods.setStornum(0);
 		goods.setRecorder((String)SecurityUtils.getSubject().getSession().getAttribute("name"));
 		goods.setDelflag(0);
@@ -85,21 +84,55 @@ public class GoodsActionBack extends AbstractAction {
 	@RequestMapping("show")
 	public ModelAndView show(Long gid) { 
 		ModelAndView mav = new ModelAndView(super.getPage("goods.show.page"));
-		//Goods goods=this.goodsService.getGoodsByGid(gid);
+		Goods goods=this.goodsService.getGoodsByGid(gid);
+		Witem witem= this.witemService.getByWiid(goods.getWiid());
+		List<Subtype> subtype=this.subtypeService.getSubtypeByWiid(witem.getWiid());
 		Map<String,Object> map=new HashMap<>();
-		map.put("goods", this.goodsService.getGoodsByGid(gid));
+		map.put("witem",witem);
+		map.put("subtype", subtype);
+		System.err.println(witem);
+		map.put("goods", goods);
 		mav.addAllObjects(map);
 		return mav;
 	}
 	@RequestMapping("edit_pre")
-	public ModelAndView editPre() { 
+	public ModelAndView editPre(Long gid) { 
 		ModelAndView mav = new ModelAndView(super.getPage("goods.edit.page"));
+		Goods good=this.goodsService.getGoodsByGid(gid);
+		System.err.println(good);
+		Map<String,Object> map=new HashMap<>();
+		map.put("goods", good);;
+		mav.addAllObjects(map);
 		return mav;
 	} 
 	@RequestMapping("edit")
-	public ModelAndView edit() {
+	public ModelAndView edit(Goods goods,MultipartFile pic) {
 		ModelAndView mav = new ModelAndView(super.getPage("forward.page"));
-		super.setMsgAndUrl(mav, "goods.list.action", "vo.edit.success", TITLE);
+		if(pic==null || pic.isEmpty()) {//判断图片信息是否存在
+			System.err.println("没有图片上传");
+		}else {//此时有图片信息上传
+			System.err.println("【文件大小】："+pic.getSize());
+			System.err.println("【文件MIME】:"+pic.getContentType());
+			System.err.println("【稳健院士名字】："+pic.getOriginalFilename());
+			String fileName=pic.getOriginalFilename().substring(pic.getOriginalFilename().lastIndexOf("."));
+			//System.out.println("====="+fileName);
+			String filePath=ContextLoader.getCurrentWebApplicationContext().getServletContext().getRealPath("/WEB-INF/upload/")+UUID.randomUUID()+fileName;
+			System.err.println(filePath);
+			try {
+				pic.transferTo(new File(filePath));
+			} catch (IllegalStateException | IOException e) {
+				e.printStackTrace();
+			}
+		}
+		goods.setPhoto(pic.getOriginalFilename());
+		goods.setLastin(new Date());
+		
+		System.err.println("=============="+goods);
+		if(this.goodsService.editGood(goods)) {
+			super.setMsgAndUrl(mav, "goods.list.action", "vo.edit.success", TITLE);
+		}else {
+			super.setMsgAndUrl(mav, "goods.list.action", "vo.edit.failure", TITLE);
+		}
 		return mav;
 	}
 	@RequestMapping("list") 
@@ -108,6 +141,7 @@ public class GoodsActionBack extends AbstractAction {
 		ModelAndView mav = new ModelAndView(super.getPage("goods.list.page"));
 		Map<String,Object> map=this.goodsService.getSplit(spu.getColumn(), spu.getKeyWord(), spu.getCurrentPage(), spu.getLineSize());
 		Map<String,Object> maps=new HashMap<>();
+		@SuppressWarnings("unchecked")
 		List<Goods> allGoods=(List<Goods>)map.get("allGoods");
 		Iterator<Goods> iter=allGoods.iterator();
 		while(iter.hasNext()) {

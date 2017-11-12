@@ -483,6 +483,7 @@
 		<module>dibmp-util</module>
 		<module>dibmp-service-member</module>
 		<module>dibmp-service-marker</module>
+		<module>dibmp-service-warehouse</module>
 		<module>dibmp-api</module>
 		<module>dibmp-web</module>
 		<module>dibmp-test-service</module>

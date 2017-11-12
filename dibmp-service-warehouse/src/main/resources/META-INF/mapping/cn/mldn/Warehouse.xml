@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.mldn.dibmp.dao.IWarehouseDAO">
+	<!-- 增加新仓库 -->	
+	<insert id="doCreate" parameter="Warehouse">
+		INSERT INTO warehouse(name,pid,cid,wiid,address,area,maximum,currnum,photo,note,recorder,admin)
+		VALUES(#{name},#{pid},#{cid},#{wiid},#{address},#{area},#{maximum},#{currnum},#{photo},#{note},#{recorder},#{admin})
+	</insert>
+	
+	<!-- 查询所有仓库信息 -->
+	<sql id="selectBase">
+		SELECT wid,name,pid,cid,wiid,address,area,maximum,currnum,photo,note,recorder,admin
+		 FROM warehouse
+	</sql>
+	
+	<!-- 通过姓名查找仓库信息 -->
+	<select id="findByName" parameterType="String" resultType="Warehouse">
+		<include refid="selectBase"/>
+		<where>
+			name=#{name}
+		</where>
+	</select>
+
+	<!-- 通过仓库编号wid查询仓库信息 -->
+	<select id="findByWid" parameterType="Long" resultType="Warehouse">
+		<include refid="selectBase"/>
+		<where>
+			wid=#{wid}
+		</where>
+	</select>
+	
+	<!-- 统计仓库数量 -->
+	<select id="findCount" parameterType="Map" resultType="Long">
+		SELECT COUNT(*) FROM warehouse
+		<where>
+			<if test="column!=null and keyWord!=null">
+				${column} LIKE #{keyWord}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页模糊查询仓库信息 -->
+	<select id="findSplit" parameterType="Map" resultType="Warehouse">
+		<include refid="selectBase"/>
+		<where>
+			<if test="column!=null and keyWord!=null">
+				${column} LIKE #{keyWord}
+			</if>
+		</where>
+		LIMIT #{start},#{lineSize};
+	</select>
+</mapper>

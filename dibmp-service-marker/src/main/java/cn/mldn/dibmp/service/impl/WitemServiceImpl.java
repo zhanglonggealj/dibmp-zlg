@@ -17,5 +17,11 @@ public class WitemServiceImpl implements IWitemService {
 	public List<Witem> getWitemAll() {
 		return this.witemDAO.findAll();
 	}
+	@Override
+	public Witem getByWiid(Long wiid) {
+		return this.witemDAO.findByWiid(wiid);
+	}
+	
+	
 
 }

@@ -23,7 +23,7 @@ import cn.mldn.dibmp.vo.Member;
 import cn.mldn.util.enctype.PasswordUtil;
 public class MemberRealm extends AuthorizingRealm {
 	@Resource 
-	private IMemberService memberService ;
+	private IMemberService memberService ; 
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 		// 此方法主要是实现用户的认证处理操作
@@ -36,7 +36,7 @@ public class MemberRealm extends AuthorizingRealm {
 		String password = PasswordUtil.encoder(new String((char[]) token.getCredentials())) ;	// 获得密码
 		if (!member.getPassword().equals(password)) { // 用户名或密码错误；
 			throw new IncorrectCredentialsException("错误的用户名或密码！") ;
-		}
+		} 
 		if (member.getLocked().equals(1)) {	// 用户被锁定了
 			throw new LockedAccountException(mid + "账户信息已经被锁定，无法登录！") ;
 		}	// 要传递加密后的密码数据信息

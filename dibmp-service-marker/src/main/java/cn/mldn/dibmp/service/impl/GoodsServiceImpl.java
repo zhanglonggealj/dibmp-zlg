@@ -31,15 +31,19 @@ public class GoodsServiceImpl extends AbstractService implements IGoodsService {
 	@Override
 	public Map<String, Object> getSplit(String column, String keyWord, Long currentPage, Integer lineSize) {
 		Map<String,Object> map=new HashMap<String,Object>();
-		System.err.println(column+"======="+keyWord);
+		//System.err.println(column+"======="+keyWord);
 		map.put("allGoods", this.goodsDAO.findSpilt(super.paramToMap( column, keyWord,currentPage, lineSize)));
-		System.err.println(this.goodsDAO.findGoodsCount(super.paramToMap( column, keyWord)));
+		//System.err.println(this.goodsDAO.findGoodsCount(super.paramToMap( column, keyWord)));
 		map.put("allRecorders", this.goodsDAO.findGoodsCount(super.paramToMap( column, keyWord)));
 		return map;
 	}
 	@Override
 	public Goods getGoodsByGid(Long gid) {
 		return this.goodsDAO.findGoodsByGid(gid);
+	}
+	@Override
+	public boolean editGood(Goods goods) {
+		return this.goodsDAO.editGoods(goods);
 	}
 
 }

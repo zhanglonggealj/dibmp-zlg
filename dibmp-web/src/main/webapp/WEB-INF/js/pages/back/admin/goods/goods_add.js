@@ -82,31 +82,4 @@ $(function(){
 		})
 	})
 	
-	/*$("button[id=submit]").on("click",function(){
-		name=$("#name").val();
-		wiid=$("#wiid").val();
-		stid=$("#stid").val();
-		price=$("#price").val();
-		weight=$("#weight").val();
-		pic=$("#pic").val();
-		note=$("#note").val();
-		console.log(name+"-"+wiid+"-"+stid+"-"+price+"-"+weight+"-"+pic+"-"+note);
-		$.ajax({
-			url:"pages/back/admin/goods/add_pre.action",
-			method:"post",
-			data:{
-				"name":name,
-				"wiid":wiid,
-				"stid":stid,
-				"price":price,
-				"weight":weight,
-				"pic":pic,
-				"note":note,
-			},
-			dataType:"json"
-				
-		})
-		operateAlert(true,"商品添加成功");
-	})*/
-	
 })

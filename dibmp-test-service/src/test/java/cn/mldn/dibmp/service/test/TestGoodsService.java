@@ -29,6 +29,7 @@ public class TestGoodsService extends TestCase {
 	public void testgetLevel() {
 		System.err.println(this.levelService.getByLid(2L));
 	}
+	
 	@Test
 	public void testgetDept() {
 		System.err.println(this.deptService.getByDid(2L));

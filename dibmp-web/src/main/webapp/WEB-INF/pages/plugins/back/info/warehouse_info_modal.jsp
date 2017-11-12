@@ -17,19 +17,19 @@
 						<table class="table table-condensed" style="width:700px;">
 							<tr>
 								<td style="width:30%;"><strong>仓库名称：</strong></td>
-								<td><span>通州一号仓库</span></td>
+								<td><span id="warename">通州一号仓库</span></td>
 							</tr>
 							<tr>
 								<td><strong>仓库地址：</strong></td>
-								<td>北京市 北京市 通州xxx</td>
+								<td id="wareaddress">北京市 北京市 通州xxx</td>
 							</tr>
 							<tr>
 								<td><strong>库存类型：</strong></td>
-								<td>服装衣帽</td>
+								<td id="warewiid">服装衣帽</td>
 							</tr>
 							<tr>
 								<td><strong>存储上限：</strong></td>
-								<td>10000</td>
+								<td id="waremaximum">10000</td>
 							</tr>
 							<tr>
 								<td><strong>当前库存量：</strong></td>
